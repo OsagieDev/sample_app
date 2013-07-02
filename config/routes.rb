@@ -1,12 +1,14 @@
 SampleApp::Application.routes.draw do
   resources :users
+  resources :sessions, only: [:new, :create, :destroy]
 
   #get "users/new"  #commented out cos we added resources :users line
   
   root to: 'static_pages#home'
-  #match '/', to: 'static_pages#home'
-  #match 'static_pages/home', to: 'static_pages#home'
-  #match '/home', to: 'static_pages#home'
+  
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete
+  #match '/sessions', to: 'sessions#create'
 
   match '/signup',  to: 'users#new'
   match '/help',    to: 'static_pages#help'
